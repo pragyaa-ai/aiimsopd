@@ -1,92 +1,104 @@
-# Topik Voice Agent v2.5
+# Topik VoiceAgent v1.0.0
 
-**Enterprise AI voice agents with multilingual support - simplified.**
+**AI-Powered Personalized Teacher for Topik Platform Onboarding**
 
-This is a demonstration of more advanced patterns for voice agents, using the OpenAI Realtime API and the OpenAI Agents SDK, customized for Topik automotive and business verification use cases.
+An intelligent voice agent that guides new team members through the Topik platform onboarding experience with personalized, conversational support in English and French.
 
-## 🚀 What's New in v2.5
+## 🎯 What is Topik VoiceAgent?
 
-- **3 Specialized Agents**: Authentication, Spotlight (Sales), and Car Dealer consultation
-- **Working Verification System**: Data points update from "Captured" → "Verified" in real-time
-- **Smart Agent Handoffs**: Automatic transfers between specialized agents
-- **Audio Upload Support**: Process audio files and URLs with automatic transcription
-- **Enhanced Data Collection**: 17 comprehensive data points for business verification
-- **Pragyaa Branding**: Complete custom branding with logo and favicon
-- **Professional UI**: Real-time AgentVisualizer with progress tracking and metrics
+Topik VoiceAgent transforms traditional onboarding into an engaging, conversational experience. Our **Personalized Teacher** agent adapts to each user's role, background, and learning style while introducing them to Topik's collaborative learning platform.
 
-## 🤖 Agent Architecture
+### 🌟 Key Features
 
-### 1. **Authentication Agent**
-- **Purpose**: Business verification and data collection for Google Business Profile
-- **Capabilities**: 
-  - Collects 17 data points (Store ID, Address, Phone, Email, Business Hours, etc.)
-  - Mandatory confirmation protocol for accuracy
-  - Smart escalation system for complex data points
-- **Language Support**: English and Hindi with proper pronunciation
-- **Tools**: `capture_store_data`, `verify_captured_data`, `authenticate_user_information`
+- **🗣️ Conversational Language Selection**: Natural English/French language choice during conversation
+- **🎓 Personalized Teaching**: Adapts to user's role, experience level, and learning preferences  
+- **🤝 Community Focus**: Emphasizes Topik's "On avance ensemble" (We move forward together) philosophy
+- **📊 Comprehensive Onboarding**: Tracks 17 data points for complete user profiling
+- **🔄 Real-time Progress**: Live onboarding progress monitoring and export
+- **🎨 Professional UI**: Clean, focused interface with Topik branding
 
-### 2. **Spotlight Agent** 
-- **Purpose**: Automotive sales lead generation
-- **Capabilities**:
-  - Collects customer interest: Full Name, Car Model, Email ID
-  - Qualification for car dealer handoff
-  - Automatic LMS integration
-- **Handoff**: Transfers qualified leads to Car Dealer agent
-- **Tools**: `capture_sales_data`, `verify_sales_data`, `capture_all_sales_data`, `push_to_lms`
+## 🤖 Meet Your Personalized Teacher
 
-### 3. **Car Dealer Agent**
-- **Purpose**: Specialized automotive consultation
-- **Capabilities**:
-  - Detailed consultation on specific car brands
-  - Collects 7 consultation data points (Budget, Timeline, Usage, Financing, etc.)
-  - Professional consultation and follow-up coordination
-- **Brand Focus**: Specialized expertise with polite redirection for other brands
-- **Tools**: `capture_consultation_data`, `verify_consultation_data`
+The **Personalized Teacher** agent is your dedicated onboarding companion that:
 
+- **Greets authentically**: Welcomes users with role-specific guidance
+- **Speaks your language**: Asks for English/French preference and maintains consistency
+- **Knows Topik deeply**: Integrates real platform knowledge from [topik.space](https://topik.space/)
+- **Compares intelligently**: Explains Topik's advantages over traditional tools (Trello, Slack, etc.)
+- **Tracks progress**: Captures onboarding data and recommends next steps
 
+### Sample Interaction
+```
+Teacher: "Welcome to Topik! Before we begin your onboarding, do you prefer English or French?"
+User: "English please"
+Teacher: "Perfect! Welcome, and great to have you on the team! 🎉
+I've gone through all your onboarding materials and matched them to your role.
+We'll move step by step, focusing on what's most relevant to you as a [ROLE].
+To begin, here's the core idea behind our platform in simple terms:
+'Topik reinvents community learning by creating spaces where people grow together — 
+it's not just training you follow, it's learning you experience collaboratively.'
+Does that make sense so far? Want to dive deeper into how it compares to tools you may have used before?"
+```
 
-## 🔄 Agent Flow Patterns
+## 📊 Onboarding Data Collection
 
-### Primary Flow: Sequential Handoff (v2.5)
-The main Topik scenario uses sequential handoffs between specialized agents:
+The agent captures 17 comprehensive data points for complete user profiling:
 
-1. **Authentication Agent** → Verifies business and collects store data
-2. **Spotlight Agent** → Captures automotive sales leads 
-3. **Car Dealer Agent** → Provides specialized automotive consultation
+### User Profile
+- Preferred Language (English/French)
+- Employee Name & Contact
+- Job Role/Position
+- Department/Team
+- Experience Level
 
-### Legacy Patterns
-1. **Chat-Supervisor:** A realtime-based chat agent interacts with the user and handles basic tasks, while a more intelligent, text-based supervisor model (e.g., `gpt-4.1`) is used extensively for tool calls and more complex responses.
-2. **Sequential Handoff:** Specialized agents transfer the user between them to handle specific user intents.
+### Learning Preferences  
+- Learning Style Preference
+- Prior LMS Experience
+- Primary Topik Use Case
 
-## 🎯 Use Cases
+### Platform Configuration
+- Community Role (Admin/Instructor/Learner)
+- Training Goals & Objectives
+- Collaboration Requirements
+- Content Creation Needs
 
-- **Business Verification**: Complete Google Business Profile data collection
-- **Automotive Sales**: Lead generation and qualification
-- **Customer Consultation**: Specialized automotive advice and follow-up
-- **Multilingual Support**: English and Hindi language support
-- **Audio Processing**: File upload and URL-based audio transcription
+### Technical Requirements
+- Analytics & Reporting Needs
+- Integration Requirements
 
-## 🛠️ Setup
+### Progress Tracking
+- Onboarding Module Progress
+- Questions Answered
+- Recommended Next Steps
+
+## 🛠️ Installation & Setup
 
 ### Prerequisites
 - Node.js 18+ and npm
 - OpenAI API key with Realtime API access
 
-### Installation
+### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/pragyaa-ai/singleinterfaceVoiceAgent2.0.git
-cd singleinterfaceVoiceAgent2.0
+git clone <your-repo-url>
+cd TopikVoiceAgent2.0
 
 # Install dependencies
 npm install
 
 # Set up environment variables
-cp .env.sample .env
-# Add your OPENAI_API_KEY to the .env file
+echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
+echo "NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here" >> .env
 
 # Start development server
 npm run dev
+```
+
+### Environment Configuration
+Create a `.env` file in the root directory:
+```env
+OPENAI_API_KEY=sk-your-openai-api-key-here
+NEXT_PUBLIC_OPENAI_API_KEY=sk-your-openai-api-key-here
 ```
 
 ### Production Deployment
@@ -98,235 +110,103 @@ npm run build
 npm run start
 ```
 
-### Accessing the Application
-- Open your browser to [http://localhost:3000](http://localhost:3000)
-- The default scenario is "Topik" with the 3 specialized agents
-- Select agents via the "Agent" dropdown: Authentication, Spotlight, or Car Dealer
-- Use the "Agent View" panel to monitor real-time data collection and handoffs
+## 🚀 Using Topik VoiceAgent
 
-### Features
-- **Voice Interaction**: Click "Connect" and speak directly to the agents
-- **Audio Upload**: Upload audio files or provide URLs for transcription
-- **Real-time Monitoring**: Watch data collection progress in the Agent Visualizer
-- **Data Export**: Download collected data as JSON files
+### Accessing the Application
+1. Open your browser to [http://localhost:3000](http://localhost:3000)
+2. The **Personalised Teacher** agent is pre-selected
+3. Click "Connect" to start your voice conversation
+4. Follow the conversational onboarding flow
+
+### Features Overview
+- **🎤 Voice Interaction**: Natural speech conversation with the AI teacher
+- **📱 Clean Interface**: Focused onboarding experience without distractions
+- **📊 Progress Monitoring**: Real-time tracking in the Onboarding Progress Center
+- **💾 Data Export**: Download complete onboarding profiles as JSON
+- **🔄 Session Management**: Seamless connection and session handling
+
+### Onboarding Flow
+1. **Language Selection**: Choose English or French conversationally
+2. **Welcome & Introduction**: Role-specific greeting and Topik overview
+3. **Profile Building**: Natural conversation to capture user details
+4. **Platform Comparison**: Understanding Topik vs. other tools
+5. **Goal Setting**: Training objectives and collaboration needs
+6. **Progress Summary**: Next steps and recommendations
+
+## 🎨 User Interface
+
+### Main Components
+- **Left Panel**: Live conversation transcript with the Personalized Teacher
+- **Right Panel**: Onboarding Progress Center with data collection status
+- **Bottom Toolbar**: Voice controls and session management
+- **Top Header**: Clean navigation focused on the onboarding experience
+
+### Progress Center Features
+- **Live Status**: "ONBOARDING" indicator with real-time updates
+- **Data Points**: Visual tracking of all 17 onboarding categories
+- **Progress Bar**: Completion percentage and status indicators
+- **Export Function**: Download `topik-onboarding-data-YYYY-MM-DD.json`
+
+## 🔧 Technical Architecture
+
+### Agent Configuration
+- **Instructions**: Comprehensive Topik platform knowledge and conversation flow
+- **Tools**: `capture_onboarding_data` and `update_onboarding_progress`
+- **Context**: Integration with DataCollectionContext for real-time updates
+
+### Data Management
+- **Real-time Collection**: Captures data points during natural conversation
+- **Type Safety**: Full TypeScript support for onboarding data structure
+- **State Management**: Efficient tracking of user progress and preferences
+
+### Integration Points
+- **OpenAI Realtime API**: Powers the conversational voice interface
+- **Next.js Framework**: Full-stack application with API routes
+- **React Context**: Global state management for onboarding data
+
+## 🌟 Topik Platform Integration
+
+### Authentic Knowledge Base
+The agent incorporates real Topik platform information:
+- **Mission**: "Empowering communities through collaborative learning"
+- **Key Features**: AI-adaptive learning, native community integration, neuroatypical support
+- **Value Propositions**: 100% user satisfaction, 2-minute setup, free start, French hosting
+- **User Testimonials**: Real Trustpilot 5.0/5 reviews
+
+### Competitive Differentiation
+Explains how Topik differs from traditional tools:
+- **vs. Trello**: Beyond task management to collaborative learning experiences
+- **vs. Slack**: Native learning community vs. communication-only platform
+- **vs. Traditional LMS**: AI-adaptive content vs. static course delivery
 
 ## 📋 Version History
 
-### v2.5 (Current)
-- **3 Specialized Agents**: Authentication, Spotlight, Car Dealer
-- **Working Verification System**: Real-time status updates
-- **Audio Upload Support**: File and URL processing
-- **Enhanced UI**: Professional AgentVisualizer with metrics
-- **Pragyaa Branding**: Complete custom branding
+### v1.0.0 (Current) - Topik VoiceAgent
+- **🎯 Complete Transformation**: From generic verification to Topik onboarding
+- **🤖 Personalized Teacher**: Dedicated onboarding agent with authentic Topik knowledge
+- **🗣️ Conversational Language**: Natural English/French selection
+- **📊 17 Data Points**: Comprehensive onboarding data collection
+- **🎨 Clean UI**: Focused, distraction-free onboarding experience
 
-### v2.0.0 (Stable Fallback)
-- **17 Data Points**: Comprehensive business verification
-- **Confirmation Protocol**: Mandatory data verification
-- **Smart Escalation**: Expert review system
-- **Enhanced UI**: Data collection progress tracking
+## 🚀 Future Roadmap
 
-### v1.x (Legacy)
-- Basic agent framework
-- Simple data collection
-- Core voice agent functionality
+- **Advanced Analytics**: Enhanced progress tracking and reporting
+- **Platform Integration**: Direct API connections to Topik platform
+- **Additional Agents**: Specialized agents for sales and support use cases
+- **Mobile Support**: Responsive design for mobile onboarding
+- **Audio Processing**: Enhanced audio upload and transcription features
 
-# Agentic Pattern 1: Chat-Supervisor
+## 🤝 Support & Contribution
 
-This is demonstrated in the [chatSupervisor](src/app/agentConfigs/chatSupervisor/index.ts) Agent Config. The chat agent uses the realtime model to converse with the user and handle basic tasks, like greeting the user, casual conversation, and collecting information, and a more intelligent, text-based supervisor model (e.g. `gpt-4.1`) is used extensively to handle tool calls and more challenging responses. You can control the decision boundary by "opting in" specific tasks to the chat agent as desired.
+### Getting Help
+- Review the installation instructions above
+- Check that your OpenAI API key has Realtime API access
+- Ensure Node.js 18+ is installed
+- Verify `.env` file configuration
 
-Video walkthrough: [https://x.com/noahmacca/status/1927014156152058075](https://x.com/noahmacca/status/1927014156152058075)
+### Contributing
+This project focuses on demonstrating conversational onboarding patterns for the Topik platform. Contributions that enhance the core onboarding experience are welcome.
 
-## Example
-![Screenshot of the Chat Supervisor Flow](/public/screenshot_chat_supervisor.png)
-*In this exchange, note the immediate response to collect the phone number, and the deferral to the supervisor agent to handle the tool call and formulate the response. There ~2s between the end of "give me a moment to check on that." being spoken aloud and the start of the "Thanks for waiting. Your last bill...".*
+---
 
-## Schematic
-```mermaid
-sequenceDiagram
-    participant User
-    participant ChatAgent as Chat Agent<br/>(gpt-4o-realtime-mini)
-    participant Supervisor as Supervisor Agent<br/>(gpt-4.1)
-    participant Tool as Tool
-
-    alt Basic chat or info collection
-        User->>ChatAgent: User message
-        ChatAgent->>User: Responds directly
-    else Requires higher intelligence and/or tool call
-        User->>ChatAgent: User message
-        ChatAgent->>User: "Let me think"
-        ChatAgent->>Supervisor: Forwards message/context
-        alt Tool call needed
-            Supervisor->>Tool: Calls tool
-            Tool->>Supervisor: Returns result
-        end
-        Supervisor->>ChatAgent: Returns response
-        ChatAgent->>User: Delivers response
-    end
-```
-
-## Benefits
-- **Simpler onboarding.** If you already have a performant text-based chat agent, you can give that same prompt and set of tools to the supervisor agent, and make some tweaks to the chat agent prompt, you'll have a natural voice agent that will perform on par with your text agent.
-- **Simple ramp to a full realtime agent**: Rather than switching your whole agent to the realtime api, you can move one task at a time, taking time to validate and build trust for each before deploying to production.
-- **High intelligence**: You benefit from the high intelligence, excellent tool calling and instruction following of models like `gpt-4.1` in your voice agents.
-- **Lower cost**: If your chat agent is only being used for basic tasks, you can use the realtime-mini model, which, even when combined with GPT-4.1, should be cheaper than using the full 4o-realtime model.
-- **User experience**: It's a more natural conversational experience than using a stitched model architecture, where response latency is often 1.5s or longer after a user has finished speaking. In this architecture, the model responds to the user right away, even if it has to lean on the supervisor agent.
-  - However, more assistant responses will start with "Let me think", rather than responding immediately with the full response.
-
-## Modifying for your own agent
-1. Update [supervisorAgent](src/app/agentConfigs/chatSupervisorDemo/supervisorAgent.ts).
-  - Add your existing text agent prompt and tools if you already have them. This should contain the "meat" of your voice agent logic and be very specific with what it should/shouldn't do and how exactly it should respond. Add this information below `==== Domain-Specific Agent Instructions ====`.
-  - You should likely update this prompt to be more appropriate for voice, for example with instructions to be concise and avoiding long lists of items.
-2. Update [chatAgent](src/app/agentConfigs/chatSupervisor/index.ts).
-  - Customize the chatAgent instructions with your own tone, greeting, etc.
-  - Add your tool definitions to `chatAgentInstructions`. We recommend a brief yaml description rather than json to ensure the model doesn't get confused and try calling the tool directly.
-  - You can modify the decision boundary by adding new items to the `# Allow List of Permitted Actions` section.
-3. To reduce cost, try using `gpt-4o-mini-realtime` for the chatAgent and/or `gpt-4.1-mini` for the supervisor model. To maximize intelligence on particularly difficult or high-stakes tasks, consider trading off latency and adding chain-of-thought to your supervisor prompt, or using an additional reasoning model-based supervisor that uses `o4-mini`.
-
-# Agentic Pattern 2: Sequential Handoffs
-
-This pattern is inspired by [OpenAI Swarm](https://github.com/openai/swarm) and involves the sequential handoff of a user between specialized agents. Handoffs are decided by the model and coordinated via tool calls, and possible handoffs are defined explicitly in an agent graph. A handoff triggers a session.update event with new instructions and tools. This pattern is effective for handling a variety of user intents with specialist agents, each of which might have long instructions and numerous tools.
-
-Here's a [video walkthrough](https://x.com/OpenAIDevs/status/1880306081517432936) showing how it works. You should be able to use this repo to prototype your own multi-agent realtime voice app in less than 20 minutes!
-
-![Screenshot of the Realtime API Agents Demo](/public/screenshot_handoff.png)
-*In this simple example, the user is transferred from a greeter agent to a haiku agent. See below for the simple, full configuration of this flow.*
-
-Configuration in `src/app/agentConfigs/simpleExample.ts`
-```typescript
-import { RealtimeAgent } from '@openai/agents/realtime';
-
-// Define agents using the OpenAI Agents SDK
-export const haikuWriterAgent = new RealtimeAgent({
-  name: 'haikuWriter',
-  handoffDescription: 'Agent that writes haikus.', // Context for the agent_transfer tool
-  instructions:
-    'Ask the user for a topic, then reply with a haiku about that topic.',
-  tools: [],
-  handoffs: [],
-});
-
-export const greeterAgent = new RealtimeAgent({
-  name: 'greeter',
-  handoffDescription: 'Agent that greets the user.',
-  instructions:
-    "Please greet the user and ask them if they'd like a haiku. If yes, hand off to the 'haikuWriter' agent.",
-  tools: [],
-  handoffs: [haikuWriterAgent], // Define which agents this agent can hand off to
-});
-
-// An Agent Set is just an array of the agents that participate in the scenario
-export default [greeterAgent, haikuWriterAgent];
-```
-## CustomerServiceRetail Flow
-
-This is a more complex, representative implementation that illustrates a customer service flow, with the following features:
-- A more complex agent graph with agents for user authentication, returns, sales, and a placeholder human agent for escalations.
-- An escalation by the returns agent to `o4-mini` to validate and initiate a return, as an example high-stakes decision, using a similar pattern to the above.
-- Prompting models to follow a state machine, for example to accurately collect things like names and phone numbers with confirmation character by character to authenticate a user.
-  - To test this flow, say that you'd like to return your snowboard and go through the necessary prompts!
-
-Configuration in [src/app/agentConfigs/customerServiceRetail/index.ts](src/app/agentConfigs/customerServiceRetail/index.ts).
-```javascript
-import authentication from "./authentication";
-import returns from "./returns";
-import sales from "./sales";
-import simulatedHuman from "./simulatedHuman";
-import { injectTransferTools } from "../utils";
-
-authentication.downstreamAgents = [returns, sales, simulatedHuman];
-returns.downstreamAgents = [authentication, sales, simulatedHuman];
-sales.downstreamAgents = [authentication, returns, simulatedHuman];
-simulatedHuman.downstreamAgents = [authentication, returns, sales];
-
-const agents = injectTransferTools([
-  authentication,
-  returns,
-  sales,
-  simulatedHuman,
-]);
-
-export default agents;
-```
-
-## Schematic
-
-This diagram illustrates a more advanced interaction flow defined in `src/app/agentConfigs/customerServiceRetail/`, including detailed events.
-
-<details>
-<summary><strong>Show CustomerServiceRetail Flow Diagram</strong></summary>
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant WebClient as Next.js Client
-    participant NextAPI as /api/session
-    participant RealtimeAPI as OpenAI Realtime API
-    participant AgentManager as Agents (authentication, returns, sales, simulatedHuman)
-    participant o1mini as "o4-mini" (Escalation Model)
-
-    Note over WebClient: User navigates to ?agentConfig=customerServiceRetail
-    User->>WebClient: Open Page
-    WebClient->>NextAPI: GET /api/session
-    NextAPI->>RealtimeAPI: POST /v1/realtime/sessions
-    RealtimeAPI->>NextAPI: Returns ephemeral session
-    NextAPI->>WebClient: Returns ephemeral token (JSON)
-
-    Note right of WebClient: Start RTC handshake
-    WebClient->>RealtimeAPI: Offer SDP (WebRTC)
-    RealtimeAPI->>WebClient: SDP answer
-    WebClient->>WebClient: DataChannel "oai-events" established
-
-    Note over AgentManager: Default agent is "authentication"
-    User->>WebClient: "Hi, I'd like to return my snowboard."
-    WebClient->>AgentManager: conversation.item.create (role=user)
-    WebClient->>RealtimeAPI: {type: "conversation.item.create"}
-    WebClient->>RealtimeAPI: {type: "response.create"}
-
-    authentication->>AgentManager: Requests user info, calls authenticate_user_information()
-    AgentManager-->>WebClient: function_call => name="authenticate_user_information"
-    WebClient->>WebClient: handleFunctionCall => verifies details
-
-    Note over AgentManager: After user is authenticated
-    authentication->>AgentManager: transferAgents("returns")
-    AgentManager-->>WebClient: function_call => name="transferAgents" args={ destination: "returns" }
-    WebClient->>WebClient: setSelectedAgentName("returns")
-
-    Note over returns: The user wants to process a return
-    returns->>AgentManager: function_call => checkEligibilityAndPossiblyInitiateReturn
-    AgentManager-->>WebClient: function_call => name="checkEligibilityAndPossiblyInitiateReturn"
-
-    Note over WebClient: The WebClient calls /api/chat/completions with model="o4-mini"
-    WebClient->>o1mini: "Is this item eligible for return?"
-    o1mini->>WebClient: "Yes/No (plus notes)"
-
-    Note right of returns: Returns uses the result from "o4-mini"
-    returns->>AgentManager: "Return is approved" or "Return is denied"
-    AgentManager->>WebClient: conversation.item.create (assistant role)
-    WebClient->>User: Displays final verdict
-```
-
-</details>
-
-# Other Info
-## Next Steps
-- You can copy these templates to make your own multi-agent voice app! Once you make a new agent set config, add it to `src/app/agentConfigs/index.ts` and you should be able to select it in the UI in the "Scenario" dropdown menu.
-- Each agentConfig can define instructions, tools, and toolLogic. By default all tool calls simply return `True`, unless you define the toolLogic, which will run your specific tool logic and return an object to the conversation (e.g. for retrieved RAG context).
-- If you want help creating your own prompt using the conventions shown in customerServiceRetail, including defining a state machine, we've included a metaprompt [here](src/app/agentConfigs/voiceAgentMetaprompt.txt), or you can use our [Voice Agent Metaprompter GPT](https://chatgpt.com/g/g-678865c9fb5c81918fa28699735dd08e-voice-agent-metaprompt-gpt)
-
-## Output Guardrails
-Assistant messages are checked for safety and compliance before they are shown in the UI.  The guardrail call now lives directly inside `src/app/App.tsx`: when a `response.text.delta` stream starts we mark the message as **IN_PROGRESS**, and once the server emits `guardrail_tripped` or `response.done` we mark the message as **FAIL** or **PASS** respectively.  If you want to change how moderation is triggered or displayed, search for `guardrail_tripped` inside `App.tsx` and tweak the logic there.
-
-## Navigating the UI
-- You can select agent scenarios in the Scenario dropdown, and automatically switch to a specific agent with the Agent dropdown.
-- The conversation transcript is on the left, including tool calls, tool call responses, and agent changes. Click to expand non-message elements.
-- The event log is on the right, showing both client and server events. Click to see the full payload.
-- On the bottom, you can disconnect, toggle between automated voice-activity detection or PTT, turn off audio playback, and toggle logs.
-
-## Pull Requests
-
-Feel free to open an issue or pull request and we'll do our best to review it. The spirit of this repo is to demonstrate the core logic for new agentic flows; PRs that go beyond this core scope will likely not be merged.
-
-# Core Contributors
-- Noah MacCallum - [noahmacca](https://x.com/noahmacca)
-- Ilan Bigio - [ibigio](https://github.com/ibigio)
-- Brian Fioca - [bfioca](https://github.com/bfioca)
+**Ready to transform your onboarding experience?** Start with Topik VoiceAgent and see how conversational AI can make platform adoption engaging, personalized, and effective! 🎉
