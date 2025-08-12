@@ -1,4 +1,4 @@
-# 🚀 GCP VM Deployment Guide - SingleInterface Voice Agent v2.0.0
+# 🚀 GCP VM Deployment Guide - Topik Voice Agent v2.0.0
 
 ## 📋 Table of Contents
 1. [GCP VM Setup](#gcp-vm-setup)
@@ -42,21 +42,21 @@ gcloud compute firewall-rules create allow-singleinterface-http \
     --allow tcp:80 \
     --source-ranges 0.0.0.0/0 \
     --target-tags http-server \
-    --description "Allow HTTP for SingleInterface Voice Agent"
+    --description "Allow HTTP for Topik Voice Agent"
 
 # Allow HTTPS traffic
 gcloud compute firewall-rules create allow-singleinterface-https \
     --allow tcp:443 \
     --source-ranges 0.0.0.0/0 \
     --target-tags https-server \
-    --description "Allow HTTPS for SingleInterface Voice Agent"
+    --description "Allow HTTPS for Topik Voice Agent"
 
 # Allow Next.js development port (if needed)
 gcloud compute firewall-rules create allow-singleinterface-dev \
     --allow tcp:3000 \
     --source-ranges 0.0.0.0/0 \
     --target-tags http-server \
-    --description "Allow Next.js dev server for SingleInterface Voice Agent"
+    --description "Allow Next.js dev server for Topik Voice Agent"
 ```
 
 ---
@@ -556,11 +556,11 @@ Here's a comprehensive deployment script:
 
 ```bash
 #!/bin/bash
-# Quick deployment script for SingleInterface Voice Agent v2.0.0
+# Quick deployment script for Topik Voice Agent v2.0.0
 
 set -e
 
-echo "🚀 Starting SingleInterface Voice Agent v2.0.0 deployment..."
+echo "🚀 Starting Topik Voice Agent v2.0.0 deployment..."
 
 # Update system
 sudo apt update && sudo apt upgrade -y
@@ -604,4 +604,4 @@ For deployment issues:
 3. Test WebSocket: `wscat -c ws://localhost:3000`
 4. Review Nginx config: `sudo nginx -t`
 
-**🎯 Your SingleInterface Voice Agent v2.0.0 is now ready for production deployment on GCP!** 
+**🎯 Your Topik Voice Agent v2.0.0 is now ready for production deployment on GCP!** 

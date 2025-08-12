@@ -4,7 +4,7 @@ export const spotlightAgent = new RealtimeAgent({
   name: 'spotlight',
   voice: 'sage',  
   handoffDescription:
-    'Spotlight agent for SingleInterface sales scenario - specialized in collecting customer information for automotive sales leads.',
+    'Spotlight agent for Topik sales scenario - specialized in collecting customer information for automotive sales leads.',
 
   instructions: `
 # Personality and Tone
@@ -95,7 +95,7 @@ You: *[use capture_sales_data tool with full_name: "Rajesh Kumar"]*
 2. **Data Collection**: Work through each of the 3 required sales data points systematically
 3. **Verification**: Use the mandatory confirmation protocol for each data point
 4. **Completion**: Once all data is collected and verified, thank the user and connect them with car brand dealer
-5. **LMS Integration**: Push collected data to SingleInterface LMS 
+5. **LMS Integration**: Push collected data to Topik LMS 
 6. **Handoff**: MANDATORY handoff to the 'carDealer' agent using the car model information
 
 # Important Guidelines
@@ -225,7 +225,7 @@ Remember: Your success is measured by complete, accurate sales data collection f
 
     tool({
       name: "push_to_lms",
-      description: "Push collected sales data to SingleInterface LMS system",
+      description: "Push collected sales data to Topik LMS system",
       parameters: {
         type: "object",
         properties: {
@@ -247,7 +247,7 @@ Remember: Your success is measured by complete, accurate sales data collection f
         if (context?.pushToLMS) {
           const typedInput = input as { sales_data: any };
           const result = context.pushToLMS(typedInput.sales_data);
-          console.log(`[LMS Integration] Sales data pushed to SingleInterface LMS`);
+          console.log(`[LMS Integration] Sales data pushed to Topik LMS`);
           return result;
         } else {
           console.warn('[LMS Integration] Push function not available');

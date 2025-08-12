@@ -110,7 +110,7 @@ export function SalesDataProvider({ children }: { children: React.ReactNode }) {
 
   const pushToLMS = useCallback((data: Record<string, string>) => {
     // TODO: Implement actual LMS API integration
-    console.log('Pushing to SingleInterface LMS:', data);
+    console.log('Pushing to Topik LMS:', data);
     
     // Simulate API call
     const lmsPayload = {
@@ -119,12 +119,12 @@ export function SalesDataProvider({ children }: { children: React.ReactNode }) {
       customer_data: data
     };
     
-    // Here you would make the actual API call to SingleInterface LMS
+    // Here you would make the actual API call to Topik LMS
     // fetch('/api/lms/push', { method: 'POST', body: JSON.stringify(lmsPayload) })
     
     return { 
       success: true, 
-      message: "Sales data successfully pushed to SingleInterface LMS" 
+      message: "Sales data successfully pushed to Topik LMS" 
     };
   }, []);
 

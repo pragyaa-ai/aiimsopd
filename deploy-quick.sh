@@ -1,10 +1,10 @@
 #!/bin/bash
-# Quick deployment script for SingleInterface Voice Agent v2.0.0
+# Quick deployment script for Topik Voice Agent v2.0.0
 # Run this script on your GCP VM after SSH'ing in
 
 set -e
 
-echo "🚀 Starting SingleInterface Voice Agent v2.0.0 deployment..."
+echo "🚀 Starting Topik Voice Agent v2.0.0 deployment..."
 echo "⏰ This will take about 10-15 minutes..."
 
 # Colors for output
@@ -106,7 +106,7 @@ print_status "Installing additional tools..."
 sudo apt install -y nginx htop iotop nethogs
 sudo npm install -g wscat
 
-print_status "Cloning SingleInterface Voice Agent repository..."
+print_status "Cloning Topik Voice Agent repository..."
 if [ -d "singleinterfaceVoiceAgent2.0" ]; then
     print_warning "Repository directory already exists. Removing..."
     rm -rf singleinterfaceVoiceAgent2.0

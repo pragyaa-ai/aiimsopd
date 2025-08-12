@@ -20,9 +20,9 @@ export const customerServiceRetailScenario = [
   // returnsAgent,        // Hidden from dropdown
   // salesAgent,          // Hidden from dropdown  
   // simulatedHumanAgent, // Hidden from dropdown
-  spotlightAgent,
-  carDealerAgent,
+  // spotlightAgent,      // Hidden from dropdown - available for future Topik use
+  // carDealerAgent,      // Hidden from dropdown - available for future Topik use
 ];
 
 // Name of the company represented by this agent set. Used by guardrails
-export const customerServiceRetailCompanyName = 'Single Interface';
+export const customerServiceRetailCompanyName = 'Topik';

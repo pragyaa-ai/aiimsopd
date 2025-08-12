@@ -1,0 +1,116 @@
+
+> openai-realtime-agents@2.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.3
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1804ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1961ms (1607 modules)
+ HEAD / 200 in 2248ms
+ ✓ Compiled in 423ms (730 modules)
+ GET / 200 in 1496ms
+ GET /?agentConfig=Topik 200 in 24ms
+ ✓ Compiled /api/session in 316ms (907 modules)
+ GET /api/session 200 in 1251ms
+ ✓ Compiled /api/responses in 347ms (1034 modules)
+ POST /api/responses 200 in 2978ms
+ POST /api/responses 200 in 3190ms
+ POST /api/responses 200 in 2672ms
+ POST /api/responses 200 in 3134ms
+ POST /api/responses 200 in 2660ms
+ POST /api/responses 200 in 2067ms
+ POST /api/responses 200 in 3211ms
+ POST /api/responses 200 in 4012ms
+ POST /api/responses 200 in 2798ms
+ POST /api/responses 200 in 2691ms
+ POST /api/responses 200 in 2665ms
+ POST /api/responses 200 in 2585ms
+ POST /api/responses 200 in 3506ms
+ POST /api/responses 200 in 2679ms
+ POST /api/responses 200 in 2174ms
+ POST /api/responses 200 in 2692ms
+ POST /api/responses 200 in 3935ms
+ POST /api/responses 200 in 3892ms
+ POST /api/responses 200 in 3747ms
+ POST /api/responses 200 in 4619ms
+ POST /api/responses 200 in 5871ms
+ POST /api/responses 200 in 6757ms
+ ✓ Compiled in 862ms (1762 modules)
+ ✓ Compiled in 349ms (1607 modules)
+ ✓ Compiled in 253ms (1607 modules)
+ ✓ Compiled in 693ms (1607 modules)
+ ✓ Compiled in 277ms (1607 modules)
+ ✓ Compiled in 237ms (1607 modules)
+ ✓ Compiled in 429ms (1607 modules)
+ ✓ Compiled in 299ms (1607 modules)
+ ✓ Compiled in 285ms (1607 modules)
+ ✓ Compiled in 276ms (1607 modules)
+ ✓ Compiled in 617ms (1607 modules)
+ ✓ Compiled in 397ms (1607 modules)
+ ✓ Compiled in 387ms (1607 modules)
+ ✓ Compiled in 394ms (1607 modules)
+ ✓ Compiled in 443ms (1607 modules)
+ ✓ Compiled in 485ms (1607 modules)
+ ✓ Compiled in 301ms (1607 modules)
+ ✓ Compiled in 318ms (1607 modules)
+ ✓ Compiled in 816ms (1607 modules)
+ HEAD / 200 in 340ms
+ ✓ Compiled in 904ms (1607 modules)
+ GET /?agentConfig=Topik 200 in 377ms
+ ✓ Compiled in 1070ms (1607 modules)
+ ✓ Compiled in 484ms (1607 modules)
+ ✓ Compiled in 691ms (1607 modules)
+ ✓ Compiled in 527ms (1607 modules)
+ ○ Compiling /api/session ...
+ ✓ Compiled /api/session in 556ms (907 modules)
+ GET /api/session 200 in 1545ms
+ ✓ Compiled /api/responses in 294ms (1034 modules)
+ POST /api/responses 200 in 2518ms
+ POST /api/responses 200 in 3018ms
+ POST /api/responses 200 in 2587ms
+ POST /api/responses 200 in 2254ms
+ POST /api/responses 200 in 2717ms
+ POST /api/responses 200 in 2173ms
+ POST /api/responses 200 in 3039ms
+ POST /api/responses 200 in 3739ms
+ POST /api/responses 200 in 2966ms
+ POST /api/responses 200 in 3572ms
+ POST /api/responses 200 in 1661ms
+ POST /api/responses 200 in 2524ms
+ POST /api/responses 200 in 2442ms
+ POST /api/responses 200 in 4387ms
+ POST /api/responses 200 in 2682ms
+ POST /api/responses 200 in 4575ms
+ POST /api/responses 200 in 4252ms
+ POST /api/responses 200 in 5152ms
+ POST /api/responses 200 in 1436ms
+ POST /api/responses 200 in 1678ms
+ POST /api/responses 200 in 2749ms
+ POST /api/responses 200 in 2461ms
+ POST /api/responses 200 in 3111ms
+ POST /api/responses 200 in 2882ms
+ POST /api/responses 200 in 4269ms
+ POST /api/responses 200 in 1862ms
+ POST /api/responses 200 in 2867ms
+ POST /api/responses 200 in 2553ms
+ POST /api/responses 200 in 4437ms
+ POST /api/responses 200 in 3907ms
+ POST /api/responses 200 in 1779ms
+ POST /api/responses 200 in 2130ms
+ POST /api/responses 200 in 3265ms
+ POST /api/responses 200 in 3894ms
+ POST /api/responses 200 in 3942ms
+ POST /api/responses 200 in 1904ms
+ POST /api/responses 200 in 2492ms
+ POST /api/responses 200 in 3558ms
+ POST /api/responses 200 in 3337ms
+ POST /api/responses 200 in 2533ms
+ POST /api/responses 200 in 2385ms
+ POST /api/responses 200 in 2885ms
+ POST /api/responses 200 in 2818ms
+ POST /api/responses 200 in 2590ms
+ ✓ Compiled in 907ms (877 modules)

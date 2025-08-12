@@ -55,9 +55,10 @@ const AgentVisualizer = ({
     downloadConsultationData
   } = useConsultationData();
 
-  // Determine if we're showing sales data (spotlight agent) or store data (authentication)
+  // Determine which agent we're showing data for
   const isSpotlightAgent = currentAgentName === 'spotlight';
   const isCarDealerAgent = currentAgentName === 'carDealer';
+  const isPersonalisedTeacher = currentAgentName === 'Personalised Teacher';
   const dataToShow = isSpotlightAgent ? salesData : isCarDealerAgent ? consultationData : capturedData;
   const completionPercentage = isSpotlightAgent 
     ? getSalesDataProgress().percentage 
@@ -116,7 +117,7 @@ const AgentVisualizer = ({
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `store-verification-data-${new Date().toISOString().split('T')[0]}.json`;
+      link.download = `topik-onboarding-data-${new Date().toISOString().split('T')[0]}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -127,24 +128,24 @@ const AgentVisualizer = ({
   // Icon mapping for data points
   const getDataPointIcon = (dataId: string) => {
     const iconMap: Record<string, React.ComponentType<any>> = {
-      // Store data icons (authentication agent)
-      'store_id': IdentificationIcon,
-      'address_line_1': HomeIcon,
-      'locality': MapPinIcon,
-      'landmark': BuildingStorefrontIcon,
-      'city': BuildingOfficeIcon,
-      'state': GlobeAltIcon,
-      'pin_code': MapPinIcon,
-      'business_hours': CalendarIcon,
-      'weekly_off': CalendarIcon,
-      'main_phone_std': PhoneIcon,
-      'manager_number': PhoneIcon,
-      'store_email': EnvelopeIcon,
-      'manager_email': EnvelopeIcon,
-      'designation': UserIcon,
-      'parking_options': TruckIcon,
-      'payment_methods': CreditCardIcon,
-      'alternate_number': PhoneIcon,
+      // Topik onboarding data icons (Personalised Teacher agent)
+      'preferred_language': GlobeAltIcon,
+      'employee_name': UserCircleIcon,
+      'job_role': IdentificationIcon,
+      'department': BuildingOfficeIcon,
+      'experience_level': ClockIcon,
+      'learning_style': UserIcon,
+      'prior_lms_experience': ClipboardDocumentListIcon,
+      'topik_use_case': WrenchScrewdriverIcon,
+      'community_role': UserIcon,
+      'training_goals': CheckCircleIcon,
+      'collaboration_needs': ChatBubbleLeftRightIcon,
+      'content_creation_needs': ClipboardDocumentListIcon,
+      'analytics_requirements': ClipboardDocumentListIcon,
+      'integration_needs': WrenchScrewdriverIcon,
+      'onboarding_progress': CheckCircleIcon,
+      'questions_answered': ChatBubbleLeftRightIcon,
+      'next_steps': MapPinIcon,
       // Sales data icons (spotlight agent)
       'full_name': UserCircleIcon,
       'car_model': TruckIcon,
@@ -171,8 +172,8 @@ const AgentVisualizer = ({
     description: 'Specialized automotive consultation and sales.',
     status: 'Active',
   } : {
-    name: 'Authentication',
-    description: 'Collecting store verification data.',
+    name: 'Personalised Teacher',
+    description: 'Guiding Topik platform onboarding experience.',
     status: 'Active',
   };
 
@@ -214,15 +215,27 @@ const AgentVisualizer = ({
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-4 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold">Data Collection Center</h2>
-          <p className="text-sm text-purple-200">Live Store Verification</p>
+          <h2 className="text-xl font-bold">
+            {isSpotlightAgent ? 'Sales Data Center' : 
+             isCarDealerAgent ? 'Consultation Center' : 
+             'Onboarding Progress Center'}
+          </h2>
+          <p className="text-sm text-purple-200">
+            {isSpotlightAgent ? 'Live Sales Lead Collection' : 
+             isCarDealerAgent ? 'Live Automotive Consultation' : 
+             'Live Topik Onboarding Session'}
+          </p>
         </div>
         <div className="flex items-center space-x-2">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </span>
-          <span className="text-sm font-medium">COLLECTING</span>
+          <span className="text-sm font-medium">
+            {isSpotlightAgent ? 'COLLECTING' : 
+             isCarDealerAgent ? 'CONSULTING' : 
+             'ONBOARDING'}
+          </span>
         </div>
       </div>
 
@@ -247,7 +260,9 @@ const AgentVisualizer = ({
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-md font-semibold text-gray-700 flex items-center">
               <ClipboardDocumentListIcon className="h-5 w-5 mr-2 text-gray-500" />
-              Data Collection Progress
+              {isSpotlightAgent ? 'Sales Data Collection' : 
+               isCarDealerAgent ? 'Consultation Progress' : 
+               'Onboarding Progress'}
             </h3>
             <button
               onClick={downloadData}
@@ -340,38 +355,62 @@ const AgentVisualizer = ({
 
         {/* Demo Buttons for Testing */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-          <p className="text-sm text-yellow-700 mb-2 font-medium">Demo: Simulate Data Capture</p>
+          <p className="text-sm text-yellow-700 mb-2 font-medium">
+            {isSpotlightAgent ? 'Demo: Simulate Sales Data' : 
+             isCarDealerAgent ? 'Demo: Simulate Consultation Data' : 
+             'Demo: Simulate Onboarding Data'}
+          </p>
           <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => captureDataPoint('store_id', 'SI-123456')}
-              className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              Store ID
-            </button>
-            <button
-              onClick={() => captureDataPoint('address_line_1', '123 Main Street, Shop No. 5')}
-              className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              Address Line 1
-            </button>
-            <button
-              onClick={() => captureDataPoint('city', 'Mumbai')}
-              className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              City
-            </button>
-            <button
-              onClick={() => captureDataPoint('main_phone_std', '+91-22-98765-43210')}
-              className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              Phone with STD
-            </button>
-            <button
-              onClick={() => captureDataPoint('payment_methods', 'Cash, UPI, Cards')}
-              className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              Payment Methods
-            </button>
+            {!isSpotlightAgent && !isCarDealerAgent && (
+              <>
+                <button
+                  onClick={() => captureDataPoint('preferred_language', 'English')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Language
+                </button>
+                <button
+                  onClick={() => captureDataPoint('employee_name', 'Alex Johnson')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Employee Name
+                </button>
+                <button
+                  onClick={() => captureDataPoint('job_role', 'Customer Success Manager')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Job Role
+                </button>
+                <button
+                  onClick={() => captureDataPoint('topik_use_case', 'Team Training & Community Building')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Use Case
+                </button>
+                <button
+                  onClick={() => captureDataPoint('community_role', 'Administrator')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Community Role
+                </button>
+              </>
+            )}
+            {isSpotlightAgent && (
+              <>
+                <button
+                  onClick={() => captureDataPoint('store_id', 'SI-123456')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Store ID
+                </button>
+                <button
+                  onClick={() => captureDataPoint('address_line_1', '123 Main Street, Shop No. 5')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Address Line 1
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

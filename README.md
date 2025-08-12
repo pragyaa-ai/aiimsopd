@@ -1,8 +1,8 @@
-# SingleInterface Voice Agent v2.5
+# Topik Voice Agent v2.5
 
 **Enterprise AI voice agents with multilingual support - simplified.**
 
-This is a demonstration of more advanced patterns for voice agents, using the OpenAI Realtime API and the OpenAI Agents SDK, customized for SingleInterface automotive and business verification use cases.
+This is a demonstration of more advanced patterns for voice agents, using the OpenAI Realtime API and the OpenAI Agents SDK, customized for Topik automotive and business verification use cases.
 
 ## 🚀 What's New in v2.5
 
@@ -48,7 +48,7 @@ This is a demonstration of more advanced patterns for voice agents, using the Op
 ## 🔄 Agent Flow Patterns
 
 ### Primary Flow: Sequential Handoff (v2.5)
-The main SingleInterface scenario uses sequential handoffs between specialized agents:
+The main Topik scenario uses sequential handoffs between specialized agents:
 
 1. **Authentication Agent** → Verifies business and collects store data
 2. **Spotlight Agent** → Captures automotive sales leads 
@@ -100,7 +100,7 @@ npm run start
 
 ### Accessing the Application
 - Open your browser to [http://localhost:3000](http://localhost:3000)
-- The default scenario is "SingleInterface" with the 3 specialized agents
+- The default scenario is "Topik" with the 3 specialized agents
 - Select agents via the "Agent" dropdown: Authentication, Spotlight, or Car Dealer
 - Use the "Agent View" panel to monitor real-time data collection and handoffs
 
