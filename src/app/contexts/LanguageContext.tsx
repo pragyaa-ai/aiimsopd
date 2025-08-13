@@ -10,10 +10,15 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [preferredLanguage, setPreferredLanguage] = useState<string>('English');
+  const [preferredLanguage, setPreferredLanguage] = useState<string>('Hindi'); // Default to Hindi for AIIMS
+
+  const updateLanguage = (language: string) => {
+    console.log(`[LanguageContext] Setting language from "${preferredLanguage}" to "${language}"`);
+    setPreferredLanguage(language);
+  };
 
   return (
-    <LanguageContext.Provider value={{ preferredLanguage, setPreferredLanguage }}>
+    <LanguageContext.Provider value={{ preferredLanguage, setPreferredLanguage: updateLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

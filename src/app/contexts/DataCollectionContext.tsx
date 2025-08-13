@@ -8,6 +8,8 @@ export interface DataPoint {
   value: string | null;
   status: 'pending' | 'captured' | 'verified';
   timestamp?: Date;
+  attempts?: number;
+  needsExpert?: boolean;
 }
 
 interface DataCollectionContextValue {
@@ -18,6 +20,10 @@ interface DataCollectionContextValue {
   getCompletionPercentage: () => number;
   getCapturedCount: () => number;
   exportData: () => any;
+  incrementAttempt: (dataId: string) => number;
+  getAttempts: (dataId: string) => number;
+  markNeedsExpert: (dataId: string) => void;
+  getValueById: (dataId: string) => string | null;
 }
 
 const DataCollectionContext = createContext<DataCollectionContextValue | undefined>(undefined);
@@ -32,23 +38,21 @@ export const useDataCollection = () => {
 
 export const DataCollectionProvider: FC<PropsWithChildren> = ({ children }) => {
   const [capturedData, setCapturedData] = useState<DataPoint[]>([
-    { id: 'preferred_language', name: 'Preferred Language', value: null, status: 'pending' },
-    { id: 'employee_name', name: 'Employee Name', value: null, status: 'pending' },
-    { id: 'job_role', name: 'Job Role/Position', value: null, status: 'pending' },
-    { id: 'department', name: 'Department/Team', value: null, status: 'pending' },
-    { id: 'experience_level', name: 'Experience Level', value: null, status: 'pending' },
-    { id: 'learning_style', name: 'Learning Style Preference', value: null, status: 'pending' },
-    { id: 'prior_lms_experience', name: 'Prior LMS Experience', value: null, status: 'pending' },
-    { id: 'topik_use_case', name: 'Primary Topik Use Case', value: null, status: 'pending' },
-    { id: 'community_role', name: 'Community Role (Admin/Instructor/Learner)', value: null, status: 'pending' },
-    { id: 'training_goals', name: 'Training Goals & Objectives', value: null, status: 'pending' },
-    { id: 'collaboration_needs', name: 'Collaboration Requirements', value: null, status: 'pending' },
-    { id: 'content_creation_needs', name: 'Content Creation Needs', value: null, status: 'pending' },
-    { id: 'analytics_requirements', name: 'Analytics & Reporting Needs', value: null, status: 'pending' },
-    { id: 'integration_needs', name: 'Integration Requirements', value: null, status: 'pending' },
-    { id: 'onboarding_progress', name: 'Onboarding Module Progress', value: null, status: 'pending' },
-    { id: 'questions_answered', name: 'Questions Answered', value: null, status: 'pending' },
-    { id: 'next_steps', name: 'Recommended Next Steps', value: null, status: 'pending' },
+    { id: 'preferred_language', name: 'Preferred Language', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'date', name: 'Date', value: new Date().toISOString().slice(0,10), status: 'captured', attempts: 0, needsExpert: false },
+    { id: 'department', name: 'Department to be shown', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'patient_name', name: 'Name (BLOCK LETTERS)', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'age', name: 'Age', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'gender', name: 'Gender', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'guardian_relation', name: 'S/W/D of', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'address', name: 'Address', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'contact_number', name: 'Contact No.', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'dob', name: 'D.O.B.', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'state', name: 'State', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'referred', name: 'Referred or Not', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'referring_department', name: 'Referring Department', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'token_number', name: 'Registration Token', value: null, status: 'pending', attempts: 0, needsExpert: false },
+    { id: 'aadhar_number', name: 'Aadhaar Number', value: null, status: 'pending', attempts: 0, needsExpert: false },
   ]);
 
   const captureDataPoint = (dataId: string, value: string, status: 'captured' | 'verified' = 'captured') => {
@@ -99,6 +103,34 @@ export const DataCollectionProvider: FC<PropsWithChildren> = ({ children }) => {
       }, {} as any);
   };
 
+  const incrementAttempt = (dataId: string) => {
+    let newCount = 0;
+    setCapturedData(prev => prev.map(item => {
+      if (item.id === dataId) {
+        newCount = (item.attempts ?? 0) + 1;
+        return { ...item, attempts: newCount };
+      }
+      return item;
+    }));
+    return newCount;
+  };
+
+  const getAttempts = (dataId: string) => {
+    const item = capturedData.find(i => i.id === dataId);
+    return item?.attempts ?? 0;
+  };
+
+  const markNeedsExpert = (dataId: string) => {
+    setCapturedData(prev => prev.map(item => 
+      item.id === dataId ? { ...item, needsExpert: true, status: 'pending' } : item
+    ));
+  };
+
+  const getValueById = (dataId: string) => {
+    const item = capturedData.find(i => i.id === dataId);
+    return item?.value ?? null;
+  };
+
   const value: DataCollectionContextValue = {
     capturedData,
     captureDataPoint,
@@ -107,6 +139,10 @@ export const DataCollectionProvider: FC<PropsWithChildren> = ({ children }) => {
     getCompletionPercentage,
     getCapturedCount,
     exportData,
+    incrementAttempt,
+    getAttempts,
+    markNeedsExpert,
+    getValueById,
   };
 
   return (

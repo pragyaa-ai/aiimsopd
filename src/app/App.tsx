@@ -32,9 +32,12 @@ import { chatSupervisorScenario } from "@/app/agentConfigs/chatSupervisor";
 import { customerServiceRetailCompanyName } from "@/app/agentConfigs/customerServiceRetail";
 import { chatSupervisorCompanyName } from "@/app/agentConfigs/chatSupervisor";
 import { simpleHandoffScenario } from "@/app/agentConfigs/simpleHandoff";
+import { aiimsOpdScenario } from "@/app/agentConfigs/aiimsOpd";
+import { aiimsCompanyName } from "@/app/agentConfigs/aiimsOpd";
 
 // Map used by connect logic for scenarios defined via the SDK.
 const sdkScenarioMap: Record<string, RealtimeAgent[]> = {
+  'AIIMS OPD': aiimsOpdScenario,
   simpleHandoff: simpleHandoffScenario,
   Topik: customerServiceRetailScenario,
   chatSupervisor: chatSupervisorScenario,
@@ -80,7 +83,7 @@ function App() {
   const [sessionStatus, setSessionStatus] = useState<SessionStatus>("DISCONNECTED");
 
   const { preferredLanguage, setPreferredLanguage } = useLanguage();
-    const { captureDataPoint } = useDataCollection();
+    const { capturedData, captureDataPoint, updateDataPoint, exportData } = useDataCollection();
   const {
     captureSalesData,
     verifySalesData,
@@ -168,19 +171,7 @@ function App() {
   // REMOVED: Auto-connect logic for manual connect mode
   // Users must now manually press Connect button
 
-  // Auto-reconnect when language changes (only if already connected)
-  useEffect(() => {
-    console.log(`[DEBUG] Language preference changed to: ${preferredLanguage}, current session status: ${sessionStatus}`);
-    if (sessionStatus === "CONNECTED") {
-      console.log(`Language changed to: ${preferredLanguage}, reconnecting to update agent context...`);
-      // Reconnect to send updated language preference to agent
-      disconnectFromRealtime();
-      // Small delay to ensure clean disconnect before reconnecting
-      setTimeout(() => {
-        connectToRealtime();
-      }, 100);
-    }
-  }, [preferredLanguage]);
+  // Do NOT reconnect on language change. The agent tool updates UI state; conversation should continue.
 
   useEffect(() => {
     if (
@@ -240,7 +231,7 @@ function App() {
 
         const companyName = agentSetKey === 'Topik'
           ? customerServiceRetailCompanyName
-          : chatSupervisorCompanyName;
+          : agentSetKey === 'AIIMS OPD' ? aiimsCompanyName : chatSupervisorCompanyName;
         const guardrail = createModerationGuardrail(companyName);
 
         await connect({
@@ -251,7 +242,14 @@ function App() {
                   extraContext: {
           addTranscriptBreadcrumb,
           preferredLanguage: preferredLanguage,
+          setPreferredLanguage,
           captureDataPoint,
+          updateDataPoint,
+          getDataValue: (key: string) => {
+            const data = exportData();
+            const entry = Object.entries(data).find(([label]) => label.toLowerCase().includes(key.replace(/_/g, ' ').toLowerCase()));
+            return entry ? (entry[1] as any).value : undefined;
+          },
           disconnectSession: disconnectFromRealtime,
           // Sales data functions for Spotlight agent
           captureSalesData,
@@ -266,6 +264,8 @@ function App() {
         });
         
         console.log(`[DEBUG] Connected with language preference: ${preferredLanguage}`);
+        // Auto-greet: configure session and trigger initial response
+        updateSession(true);
       } catch (err) {
         console.error("Error connecting via SDK:", err);
         setSessionStatus("DISCONNECTED");

@@ -58,6 +58,7 @@ const AgentVisualizer = ({
   // Determine which agent we're showing data for
   const isSpotlightAgent = currentAgentName === 'spotlight';
   const isCarDealerAgent = currentAgentName === 'carDealer';
+  const isAIIMSRegistration = currentAgentName === 'patient_registration' || currentAgentName === 'Patient Registration';
   const isPersonalisedTeacher = currentAgentName === 'Personalised Teacher';
   const dataToShow = isSpotlightAgent ? salesData : isCarDealerAgent ? consultationData : capturedData;
   const completionPercentage = isSpotlightAgent 
@@ -150,6 +151,17 @@ const AgentVisualizer = ({
       'full_name': UserCircleIcon,
       'car_model': TruckIcon,
       'email_id': EnvelopeIcon,
+      // AIIMS OPD registration icons
+      'aadhar_number': IdentificationIcon,
+      'patient_name': UserCircleIcon,
+      'gender': UserIcon,
+      'guardian_relation': IdentificationIcon,
+      'address': HomeIcon,
+      'contact_number': PhoneIcon,
+      'dob': CalendarIcon,
+      'referred': ClipboardDocumentListIcon,
+      'referring_department': BuildingOfficeIcon,
+      'token_number': IdentificationIcon,
       // Consultation data icons (car dealer agent)
       'budget_range': CreditCardIcon,
       'timeline': CalendarIcon,
@@ -171,6 +183,10 @@ const AgentVisualizer = ({
     name: 'Car Dealer',
     description: 'Specialized automotive consultation and sales.',
     status: 'Active',
+  } : isAIIMSRegistration ? {
+    name: 'Patient Registration',
+    description: 'Collecting and verifying AIIMS OPD registration details.',
+    status: 'Active',
   } : {
     name: 'Personalised Teacher',
     description: 'Guiding Topik platform onboarding experience.',
@@ -186,6 +202,8 @@ const AgentVisualizer = ({
     { name: 'Returns' },
     { name: 'Sales' },
     { name: 'Spotlight' },
+    { name: 'Human Agent' },
+  ] : isAIIMSRegistration ? [
     { name: 'Human Agent' },
   ] : [
     { name: 'Returns' },
@@ -218,12 +236,12 @@ const AgentVisualizer = ({
           <h2 className="text-xl font-bold">
             {isSpotlightAgent ? 'Sales Data Center' : 
              isCarDealerAgent ? 'Consultation Center' : 
-             'Onboarding Progress Center'}
+             isAIIMSRegistration ? 'AIIMS OPD Registration' : 'Onboarding Progress Center'}
           </h2>
           <p className="text-sm text-purple-200">
             {isSpotlightAgent ? 'Live Sales Lead Collection' : 
              isCarDealerAgent ? 'Live Automotive Consultation' : 
-             'Live Topik Onboarding Session'}
+             isAIIMSRegistration ? 'Live Patient Registration' : 'Live Topik Onboarding Session'}
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -234,7 +252,7 @@ const AgentVisualizer = ({
           <span className="text-sm font-medium">
             {isSpotlightAgent ? 'COLLECTING' : 
              isCarDealerAgent ? 'CONSULTING' : 
-             'ONBOARDING'}
+             isAIIMSRegistration ? 'REGISTERING' : 'ONBOARDING'}
           </span>
         </div>
       </div>
@@ -262,7 +280,7 @@ const AgentVisualizer = ({
               <ClipboardDocumentListIcon className="h-5 w-5 mr-2 text-gray-500" />
               {isSpotlightAgent ? 'Sales Data Collection' : 
                isCarDealerAgent ? 'Consultation Progress' : 
-               'Onboarding Progress'}
+               isAIIMSRegistration ? 'Registration Data' : 'Onboarding Progress'}
             </h3>
             <button
               onClick={downloadData}
@@ -303,11 +321,14 @@ const AgentVisualizer = ({
                         ? 'bg-green-100 text-green-800' 
                         : dataPoint.status === 'not_available'
                         ? 'bg-gray-100 text-gray-600'
+                        : (dataPoint as any).needsExpert
+                        ? 'bg-red-100 text-red-800'
                         : 'bg-yellow-100 text-yellow-800'
                     }`}>
                       {dataPoint.status === 'verified' ? 'Verified' : 
                        dataPoint.status === 'captured' ? 'Captured' :
-                       dataPoint.status === 'not_available' ? 'N/A' : 'Pending'}
+                       dataPoint.status === 'not_available' ? 'N/A' : 
+                       (dataPoint as any).needsExpert ? 'Expert Review' : 'Pending'}
                     </span>
                   </div>
                 </div>
@@ -361,7 +382,7 @@ const AgentVisualizer = ({
              'Demo: Simulate Onboarding Data'}
           </p>
           <div className="flex flex-wrap gap-2">
-            {!isSpotlightAgent && !isCarDealerAgent && (
+            {!isSpotlightAgent && !isCarDealerAgent && !isAIIMSRegistration && (
               <>
                 <button
                   onClick={() => captureDataPoint('preferred_language', 'English')}
@@ -408,6 +429,22 @@ const AgentVisualizer = ({
                   className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
                 >
                   Address Line 1
+                </button>
+              </>
+            )}
+            {isAIIMSRegistration && (
+              <>
+                <button
+                  onClick={() => captureDataPoint('aadhar_number', '1234 5678 9012', 'captured')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Demo Aadhaar
+                </button>
+                <button
+                  onClick={() => captureDataPoint('patient_name', 'RAM KUMAR', 'verified')}
+                  className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Demo Name
                 </button>
               </>
             )}
