@@ -6,6 +6,7 @@ import { useDataCollection } from '../contexts/DataCollectionContext';
 import { SessionStatus } from "@/app/types";
 import VoiceHelpGuide from './VoiceHelpGuide';
 import DoctorImage from './DoctorImage';
+import CameraCapture from './CameraCapture';
 
 interface SimpleOPDInterfaceProps {
   sessionStatus: SessionStatus;
@@ -26,6 +27,7 @@ export default function SimpleOPDInterface({
   const [currentStep, setCurrentStep] = useState(0);
   const [showHelpGuide, setShowHelpGuide] = useState(false);
   const [largeTextMode, setLargeTextMode] = useState(false);
+  const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
   
   const isConnected = sessionStatus === "CONNECTED";
   const isConnecting = sessionStatus === "CONNECTING";
@@ -90,6 +92,12 @@ export default function SimpleOPDInterface({
     }
   };
 
+  const handlePhotoCapture = (photoData: string) => {
+    console.log('[SimpleOPD] Photo captured, data length:', photoData.length);
+    setCapturedPhoto(photoData);
+    // You can also store this in context or send to backend here
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
       {/* Header */}
@@ -105,16 +113,24 @@ export default function SimpleOPDInterface({
             </div>
           </div>
           <div className="text-right">
-            <div className="text-sm text-gray-500">आज की तारीख / Today's Date</div>
-            <div className="text-lg font-semibold">{new Date().toLocaleDateString('hi-IN')}</div>
+            <div className="text-sm text-gray-800">आज की तारीख / Today's Date</div>
+            <div className="text-lg font-semibold text-gray-800">{new Date().toLocaleDateString('hi-IN')}</div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           
-          {/* Left Panel - Main Interaction */}
+          {/* Camera Section - Left */}
+          <div className="lg:col-span-1">
+            <CameraCapture 
+              onPhotoCapture={handlePhotoCapture} 
+              largeTextMode={largeTextMode}
+            />
+          </div>
+          
+          {/* Main Interaction Panel - Center */}
           <div className="lg:col-span-2">
             {/* Welcome Message */}
             <div className="bg-white rounded-3xl shadow-lg p-8 mb-8 border-l-8 border-green-500">
