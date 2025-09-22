@@ -10,6 +10,7 @@ import Image from "next/image";
 import Transcript from "./components/Transcript";
 import AgentVisualizer from "./components/AgentVisualizer";
 import BottomToolbar from "./components/BottomToolbar";
+import SimpleOPDInterface from "./components/SimpleOPDInterface";
 
 // Types
 import { SessionStatus } from "@/app/types";
@@ -212,14 +213,29 @@ function App() {
   };
 
   const connectToRealtime = async () => {
+    console.log('[App] connectToRealtime called');
     const agentSetKey = searchParams.get("agentConfig") || "default";
+    console.log('[App] agentSetKey:', agentSetKey);
+    
     if (sdkScenarioMap[agentSetKey]) {
-      if (sessionStatus !== "DISCONNECTED") return;
+      console.log('[App] Found scenario for:', agentSetKey);
+      if (sessionStatus !== "DISCONNECTED") {
+        console.log('[App] Already connecting/connected, status:', sessionStatus);
+        return;
+      }
+      
+      console.log('[App] Setting status to CONNECTING');
       setSessionStatus("CONNECTING");
 
       try {
+        console.log('[App] Fetching ephemeral key...');
         const EPHEMERAL_KEY = await fetchEphemeralKey();
-        if (!EPHEMERAL_KEY) return;
+        if (!EPHEMERAL_KEY) {
+          console.error('[App] No ephemeral key received');
+          setSessionStatus("DISCONNECTED");
+          return;
+        }
+        console.log('[App] Ephemeral key received, length:', EPHEMERAL_KEY.length);
 
         // Ensure the selectedAgentName is first so that it becomes the root
         const reorderedAgents = [...sdkScenarioMap[agentSetKey]];
@@ -263,14 +279,19 @@ function App() {
         },
         });
         
-        console.log(`[DEBUG] Connected with language preference: ${preferredLanguage}`);
+        console.log(`[App] Connected with language preference: ${preferredLanguage}`);
         // Auto-greet: configure session and trigger initial response
         updateSession(true);
+        console.log('[App] Connection completed successfully');
       } catch (err) {
-        console.error("Error connecting via SDK:", err);
+        console.error("[App] Error connecting via SDK:", err);
         setSessionStatus("DISCONNECTED");
+        throw err; // Re-throw to be caught by the SimpleOPD interface
       }
       return;
+    } else {
+      console.error('[App] No scenario found for agentSetKey:', agentSetKey);
+      throw new Error(`No scenario found for ${agentSetKey}`);
     }
   };
 
@@ -496,6 +517,7 @@ function App() {
   }, []);
 
   const agentSetKey = searchParams.get("agentConfig") || "default";
+  const isAIIMSOPD = agentSetKey === 'AIIMS OPD';
 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
@@ -557,6 +579,20 @@ function App() {
     }
   };
 
+  // Use simplified interface for AIIMS OPD
+  if (isAIIMSOPD) {
+    return (
+      <SimpleOPDInterface
+        sessionStatus={sessionStatus}
+        onConnect={connectToRealtime}
+        onDisconnect={disconnectFromRealtime}
+        isAudioEnabled={isAudioPlaybackEnabled}
+        setIsAudioEnabled={setIsAudioPlaybackEnabled}
+      />
+    );
+  }
+
+  // Original complex interface for other scenarios
   return (
     <div className="text-base flex flex-col h-screen bg-gray-100 text-gray-800 relative">
       <div className="p-5 text-lg font-semibold flex justify-between items-center bg-white shadow-md py-3">
